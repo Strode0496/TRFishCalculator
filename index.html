@@ -97,8 +97,20 @@
 			margin-bottom: 4px;
 		}
 		.fishExpSmall{
-			width: 21%;
+			width: 13%;
 			margin-right: 0;
+		}
+
+/*		EXP 입력란 설명 문구 위치 지정 */
+		.expInputContainer{
+			position: relative;
+		}
+		.expInputDescription{
+			position: absolute; right: 12px; top: 12px;
+			text-align: right;
+			line-height: 1.2em;
+			font-size: 0.9em;
+			width: 220px;
 		}
 
 /*		입력과 출력 레벨 시각적 표현 */
@@ -121,10 +133,102 @@
 			background: linear-gradient(#8e5fed, #326ff5, #0592fe);
 		}
 
-/*		하단 저작권 표시 */
+/*		하단 만든이 표시 */
 		footer{
 			color: #2095e7; text-align: center;
 			margin-top: 2px;
+		}
+
+/*		모바일 환경 대응 */
+		@media (max-width: 575px){
+
+/*			배경 동영상 */
+			div.bgVideo{
+				display: none;
+			}
+			.bgVideoContent{
+				display: none;
+			}
+
+/*			가장 큰 컨테이너 박스 */
+			.allContainer{
+				display: block;
+				width: 100%; min-height: 100%;
+			}
+
+/*			맨 위 큰 제목 스타일 */
+			h2{
+				width: calc(100% - 24px); height: 40px;
+				border-radius: 0;
+			}
+
+			h3{
+				font-size: 1.2em;
+			}
+
+/*			바깥쪽 흰색 컨테이너 */
+			.outContainer{
+				width: calc(100% - 24px); 
+				border-radius: 0;
+				background-color: white;
+				padding: 10px;
+			}
+
+/*			입력란 스타일 */
+			#colorSelect, #bootsSelect, #percentInput, .fishExp{
+				height: 30px; background: none; border: none;
+				color: white; font-size: 1em; padding: 0 6px;
+				background-color: #0782dd; border-radius: 2px;
+				margin-right: 6px;
+			}
+			#colorSelect{width: 90%; margin-bottom: 4px;}
+			#bootsSelect{width: 90%; margin-bottom: 4px;}
+			#percentInput{width: 80%}
+			.fishExp{
+				width: 80%;
+				margin-bottom: 4px;
+			}
+			.fishExpSmall{
+				width: 18%;
+				margin-right: 0;
+			}
+
+/*			EXP 입력란 설명 문구 위치 지정 */
+			.expInputContainer{
+				position: static;
+			}
+			.expInputDescription{
+				position: static;
+				text-align: left;
+				font-size: 1em;
+				width: 95%;
+				margin-bottom: 8px;
+			}
+
+/*			입력과 출력 레벨 시각적 표현 */
+			.iconDisplay{
+				width: 27px; height: 22px;
+				background: linear-gradient(white, #d2d2d2);
+				border: solid 1px #0782dd;
+				display: inline-block;
+			}
+			.levelBarDisplay{
+				width: 85%; height: 22px;
+				background: linear-gradient(#8ea7bf, #adb9c6);
+				border: solid 1px #0782dd;
+				display: inline-block;
+				margin-top: 1px;
+			}
+			.levelBarDisplayInner{
+				width: 0%; height: 22px;
+				background: linear-gradient(#8e5fed, #326ff5, #0592fe);
+			}
+
+/*			하단 만든이 표시 */
+			footer{
+				height: 30px;
+			}
+
 		}
 
 	</style>
@@ -200,8 +304,6 @@
 
 					</div>
 
-					
-
 				</div>
 
 			</div>
@@ -210,30 +312,30 @@
 
 				<h3>어획물 전체 페이지 교환 EXP 각각 입력</h3>
 
-				<div class="innerContainer2" style="position: relative;">
+				<div class="innerContainer2 expInputContainer">
 
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-
-					<div style="position: absolute; right: 12px; top: 12px; text-align: right; line-height: 1.2em; font-size: 0.9em; width: 220px;">
+					<div class="expInputDescription">
 						<p style="margin-bottom: 4px;">공원의 <span style="color: palegreen; font-weight: bold;">캡틴 마도로스 NPC - 어획물 교환하기 - Exp로 교환하기</span>에 있는 '페이지전체'의 값들을 왼쪽 입력란에 각각 전부 입력해주시면 됩니다.</p>
 						<p>'교환 가능 수치 초과' 상태일 때는 아래의 작은 12개 칸에 그 페이지의 물고기들에 각각 <span style="color: palegreen; font-weight: bold;">교환 수량 최대</span>를 누르면 나오는 값들을 적어주세요!</p>
 					</div>
+
+					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
+					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
+					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
+					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
+					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
 
 				</div>
 
