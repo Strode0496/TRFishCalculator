@@ -257,35 +257,10 @@
 					<div>
 						
 						<!-- 드롭다운 메뉴 레벨 색상 입력 -->
-						<select id="colorSelect">
-							<option value="red">빨간색</option>
-							<option value="orange">주황색</option>
-							<option value="yellow">노란색</option>
-							<option value="green">초록색</option>
-							<option value="blue">파란색</option>
-							<option value="navy">남색</option>
-							<option value="purple">보라색</option>
-						</select>
+						<select id="colorSelect"></select>
 
 						<!-- 드롭다운 메뉴 레벨 부츠 입력 -->
-						<select id="bootsSelect">
-							<option value="chick">병아리</option>
-							<option value="sole">발바닥</option>
-							<option value="sock">양말</option>
-							<option value="slipper">슬리퍼</option>
-							<option value="sneaker">운동화</option>
-							<option value="wing">윙부츠</option>
-							<option value="devil">데빌윙부츠</option>
-							<option value="angel">엔젤윙부츠</option>
-							<option value="power">파워윙부츠</option>
-							<option value="thunder">썬더윙부츠</option>
-							<option value="lunar">루나윙부츠</option>
-							<option value="solar">쏠라윙부츠</option>
-							<option value="stella">스텔라윙부츠</option>
-							<option value="galaxy">갤럭시윙부츠</option>
-							<option value="holy">홀리윙부츠</option>
-							<option value="proud">프라우드윙부츠</option>
-						</select>
+						<select id="bootsSelect"></select>
 
 						<!-- 현재 퍼센티지 입력 -->
 						<input type="number" id="percentInput" min="0" max="100" step="0.01" value="0">%
@@ -295,7 +270,7 @@
 					<div style="width: 100%; margin-top: 4px;">
 						
 						<div class="iconDisplay" id="iconDisplayBefore" style="position: relative;">
-							<img src="levelIcons\1.webp" alt="1.webp" style="position: absolute; top: 1px; left: 1px;">
+							<img src="levelIcons-svg\1.svg" alt="1.svg" style="position: absolute; top: 1px; left: 1px;">
 						</div>
 						<div class="levelBarDisplay" style="position: relative;">
 							<div class="levelBarDisplayInner" id="levelBarDisplayInnerBefore"></div>
@@ -355,7 +330,7 @@
 						<div style="width: 100%; margin-top: 4px;">
 											
 							<div class="iconDisplay" id="iconDisplayAfter" style="position: relative;">
-								<img src="levelIcons\1.webp" alt="1.webp" style="position: absolute; top: 1px; left: 1px;">
+								<img src="levelIcons-svg\1.svg" alt="1.svg" style="position: absolute; top: 1px; left: 1px;">
 							</div>
 							<div class="levelBarDisplay" style="position: relative;">
 								<div class="levelBarDisplayInner" id="levelBarDisplayInnerAfter"></div>
@@ -530,6 +505,23 @@
 	const pctBefore = document.getElementById('percentDisplayBefore');
 	const pctAfter = document.getElementById('percentDisplayAfter');
 
+	// 레벨 색상과 신발 종류 입력하는 select 부분의 선택지 동적 추가
+	const uniqueColors = [...new Set(levelData.map(lvl => lvl.color))];
+	uniqueColors.forEach(color => {
+		const option = document.createElement('option');
+		option.value = color;
+		option.textContent = levelData.find(lvl => lvl.color === color).koNameColor;
+		colorSelect.appendChild(option);
+	});
+
+	const uniqueBoots = [...new Set(levelData.map(lvl => lvl.boots))];
+	uniqueBoots.forEach(boots => {
+		const option = document.createElement('option');
+		option.value = boots;
+		option.textContent = levelData.find(lvl => lvl.boots === boots).koNameBoots;
+		bootsSelect.appendChild(option);
+	});
+
 	// 계산 함수
 	function calculate() {
 
@@ -572,7 +564,7 @@
 			const afterXp = currentXp + totalFishXp;
 
 			// 입력 아이콘 src 값을 변경
-			iconBefore.src = `levelIcons/${currentLevel.level}.webp`;
+			iconBefore.src = `levelIcons-svg/${currentLevel.level}.svg`;
 
 			// 입력 퍼센티지 바와 텍스트 바 그래픽을 반영
 			let displayPctBefore = percent;
@@ -599,7 +591,7 @@
 			}
 
 			// 출력 아이콘 src 변경
-			iconAfter.src = `levelIcons/${final.level}.webp`;
+			iconAfter.src = `levelIcons-svg/${final.level}.svg`;
 			// 출력 퍼센티지 바 & 텍스트 반영
 			barAfter.style.width = finalPercent + '%';
 			pctAfter.textContent = finalPercent.toFixed(2) + '%';
