@@ -8,7 +8,7 @@
 
 따로 내려받거나 설치할 필요 없이 웹 브라우저로 접속만 하면 바로 사용하실 수 있습니다.
 
-**GitHub Pages 주소: https://strode0496.github.io/TRFishCalculator**
+**GitHub Pages 주소: <a href="https://strode0496.github.io/TRFishCalculator" target="_blank">https://strode0496.github.io/TRFishCalculator</a>**
 
 <br>
 
