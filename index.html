@@ -298,7 +298,7 @@
 					<div style="width: 100%; margin-top: 4px;">
 						
 						<div class="iconDisplay" id="iconDisplayBefore" style="position: relative;">
-							<img src="levelIcons-svg\1.svg" alt="1.svg" style="position: absolute; top: 1px; left: 1px;">
+							<img src="levelIcons\1.webp" alt="1.webp" style="position: absolute; top: 1px; left: 1px;">
 						</div>
 						<div class="levelBarDisplay" style="position: relative;">
 							<div class="levelBarDisplayInner" id="levelBarDisplayInnerBefore"></div>
@@ -358,7 +358,7 @@
 						<div style="width: 100%; margin-top: 4px;">
 											
 							<div class="iconDisplay" id="iconDisplayAfter" style="position: relative;">
-								<img src="levelIcons-svg\1.svg" alt="1.svg" style="position: absolute; top: 1px; left: 1px;">
+								<img src="levelIcons\1.webp" alt="1.webp" style="position: absolute; top: 1px; left: 1px;">
 							</div>
 							<div class="levelBarDisplay" style="position: relative;">
 								<div class="levelBarDisplayInner" id="levelBarDisplayInnerAfter"></div>
@@ -632,8 +632,8 @@
 
 			barBefore.style.width = '0%';
 			barAfter.style.width = '0%';
-			iconAfter.src = 'levelIcons-svg/1.svg';
-			iconAfter.alt = '1.svg';
+			iconAfter.src = 'levelIcons/1.webp';
+			iconAfter.alt = '1.webp';
 			return;
 		}
 
@@ -658,8 +658,8 @@
 		const afterXp = currentXp + totalFishXp;
 
 		// 입력 아이콘 src 값을 변경
-		iconBefore.src = `levelIcons-svg/${currentLevel.level}.svg`;
-		iconBefore.alt = `${currentLevel.level}.svg`;
+		iconBefore.src = `levelIcons/${currentLevel.level}.webp`;
+		iconBefore.alt = `${currentLevel.level}.webp`;
 
 		// 입력 퍼센티지 바와 텍스트 바 그래픽을 반영
 		let displayPctBefore = percent;
@@ -686,8 +686,8 @@
 		}
 
 		// 출력 아이콘 src 변경
-		iconAfter.src = `levelIcons-svg/${final.level}.svg`;
-		iconAfter.alt = `${final.level}.svg`;
+		iconAfter.src = `levelIcons/${final.level}.webp`;
+		iconAfter.alt = `${final.level}.webp`;
 		// 출력 퍼센티지 바 & 텍스트 반영
 		barAfter.style.width = finalPercent + '%';
 		pctAfter.textContent  = `Lv.${final.level} ${final.koNameColor} ${final.koNameBoots} ${finalPercent.toFixed(2)}%`;
