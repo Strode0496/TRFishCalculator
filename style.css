@@ -40,6 +40,23 @@ h2{
 	border: solid 2px #0782dd; border-radius: 0 0 25px 25px;
 	background-color: #ffffffe6;
 	padding: 20px;
+	position: relative;
+}
+
+/* 로그 박스 */
+#logMessage{
+	width: 260px; height: calc(100% - 20px);
+	position: absolute; left: -300px; top: 0;
+	padding: 10px;
+	line-height: 1.1em;
+	white-space: nowrap; overflow-x: scroll; overflow-y: scroll;
+	/*background-color: #ffffffb3; backdrop-filter: blur(20px);*/
+	background-color: transparent; backdrop-filter: blur(5px);
+	/*border: solid 2px lightskyblue; border-radius: 10px; color: lightskyblue;*/
+	border: solid 2px #0782dd; border-radius: 10px; color: #0782dd;
+}
+#logMessage>p{
+	margin-bottom: 4px;
 }
 
 /* 안쪽 파란색 컨테이너 */
@@ -155,6 +172,14 @@ footer{
 		background-color: white;
 		padding: 10px;
 	}
+
+/* 로그 박스 */
+#logMessage{
+	display: none;
+}
+#logMessage>p{
+	display: none;
+}
 
 /*	입력란 스타일 */
 	#colorSelect, #bootsSelect, #percentInput, .fishExp{
