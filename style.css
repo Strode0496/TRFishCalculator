@@ -55,9 +55,6 @@ h2{
 	/*border: solid 2px lightskyblue; border-radius: 10px; color: lightskyblue;*/
 	border: solid 2px #0782dd; border-radius: 10px; color: #0782dd;
 }
-#logMessage>p{
-	margin-bottom: 4px;
-}
 
 /* 안쪽 파란색 컨테이너 */
 .innerContainer{
