@@ -157,8 +157,8 @@ function calculate() {
 	}
 
 	// 출력 아이콘 src 변경
-	iconAfter.src = `levelIcons-svg/${currentLevel.level}.svg`;
-	iconAfter.alt = `${currentLevel.level}.svg`;
+	iconAfter.src = `levelIcons-svg/${final.level}.svg`;
+	iconAfter.alt = `${final.level}.svg`;
 	// 출력 퍼센티지 바 & 텍스트 반영
 	barAfter.style.width = finalPercent + '%';
 	pctAfter.textContent  = `Lv.${final.level} ${final.koNameColor} ${final.koNameBoots} ${finalPercent.toFixed(2)}%`;
