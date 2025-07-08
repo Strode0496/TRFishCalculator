@@ -66,6 +66,23 @@ uniqueBoots.forEach(boots => {
 	bootsSelect.appendChild(option);
 });
 
+// 로그 기록 함수
+function appendLog(lines) {
+	const logDiv = document.getElementById('logMessage');
+	if (!logDiv) return;
+	lines.forEach(line => {
+		const p = document.createElement('p');
+		p.textContent = line;
+		logDiv.appendChild(p);
+	});
+	logDiv.appendChild(document.createElement('br'));
+}
+
+// function clearLogs() {
+// 	const logDiv = document.getElementById('logMessage');
+// 	if (logDiv) logDiv.textContent = '';
+// }
+
 // 계산 함수
 function calculate() {
 
@@ -80,6 +97,7 @@ function calculate() {
 	if (isNaN(percent) || percent < 0 || percent >= 100) {
 		currentExpDisplay.textContent = "";
 		afterExpDisplay.textContent = "";
+		// afterLevelDisplay.textContent = "";
 		pctBefore.textContent = "퍼센티지 값은 0 ~ 99.99 사이의 값으로 입력해주세요.";
 		pctAfter.textContent = "";
 
@@ -87,9 +105,7 @@ function calculate() {
 		barAfter.style.width = '0%';
 		iconAfter.src = 'levelIcons-svg/1.svg';
 		iconAfter.alt = '1.svg';
-		
 		return;
-		// return은 오류 발생 시 아래 함수들의 실행을 중단
 	}
 
 	const currentLevel = levelData.find(lvl => lvl.color === color && lvl.boots === boots);
@@ -157,3 +173,86 @@ percentInput.addEventListener('input', calculate);
 fishExpInputs.forEach(i=>i.addEventListener('input', calculate));
 
 calculate();
+
+// 색상 드롭다운 로그
+colorSelect.addEventListener('change', () => {
+	// clearLogs();
+	const lvl = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
+	if (lvl) {
+		appendLog([
+			`현재 레벨 입력: ${lvl.koNameColor} ${lvl.koNameBoots}`,
+			`${lvl.koNameColor} ${lvl.koNameBoots} 경험치: ${lvl.xp.toLocaleString()} EXP 이상`
+		]);
+	}
+});
+
+// 신발 드롭다운 로그
+bootsSelect.addEventListener('change', () => {
+	// clearLogs();
+	const lvl = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
+	if (lvl) {
+		appendLog([
+			`현재 레벨 입력: ${lvl.koNameColor} ${lvl.koNameBoots}`,
+			`${lvl.koNameColor} ${lvl.koNameBoots} 경험치: ${lvl.xp.toLocaleString()} EXP 이상`
+		]);
+	}
+});
+
+// 퍼센티지 입력 blur 로그
+percentInput.addEventListener('blur', () => {
+	const p = parseFloat(percentInput.value);
+	if (isNaN(p) || p < 0 || p >= 100) return;
+
+	const curr = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
+	const next = levelData.find(l => l.level === curr.level + 1);
+	if (!curr || !next) return;
+
+	const needed = next.xp - curr.xp;
+	const currXpCalc = curr.xp + needed * (p / 100);
+
+	appendLog([
+		`현재 레벨의 퍼센티지 입력: ${p.toFixed(2)}%`,
+		`입력되어 있는 현재 레벨: ${curr.koNameColor} ${curr.koNameBoots}`,
+		`다음 레벨: ${next.koNameColor} ${next.koNameBoots}`,
+		`${curr.koNameColor} ${curr.koNameBoots} 달성 조건: ${curr.xp.toLocaleString()} EXP`,
+		`${next.koNameColor} ${next.koNameBoots} 달성 조건: ${next.xp.toLocaleString()} EXP`,
+		`${next.koNameColor} ${next.koNameBoots} 달성에 필요한 추가 경험치: ${needed.toLocaleString()} EXP`,
+		`입력된 퍼센티지로 현재 총 경험치 계산: ${curr.xp.toLocaleString()} + ${needed.toLocaleString()} * ${(p/100).toFixed(4)} = 약 ${Math.round(currXpCalc).toLocaleString()} EXP`
+	]);
+});
+
+// 어획물 EXP 입력 blur 로그
+fishExpInputs.forEach(input => {
+	input.addEventListener('blur', () => {
+		const curr = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
+		const next = levelData.find(l => l.level === curr.level + 1);
+
+		const p = parseFloat(percentInput.value);
+		const needed = next ? next.xp - curr.xp : 0;
+		const currXpCalc = curr.xp + (next ? needed * (p / 100) : 0);
+
+		let sumFish = 0;
+		fishExpInputs.forEach(inp => sumFish += parseInt(inp.value) || 0);
+		const afterXp = currXpCalc + sumFish;
+
+		let finalLevel = levelData[0];
+		levelData.forEach(l => { if (afterXp >= l.xp) finalLevel = l; });
+		const finalNext = levelData.find(l => l.level === finalLevel.level + 1);
+
+		const additionalNeeded = finalNext ? finalNext.xp - finalLevel.xp : 0;
+		const within = afterXp - finalLevel.xp;
+		const finalPct = finalNext ? Math.min(within / additionalNeeded * 100, 100) : 100;
+
+		appendLog([
+			`어획물 경험치 총 입력: ${sumFish.toLocaleString()} EXP`,
+			`현재 경험치: 약 ${Math.round(currXpCalc).toLocaleString()} EXP`,
+			`입력한 어획물들을 전부 EXP로 더하면: 약 ${Math.round(afterXp).toLocaleString()} EXP`,
+			`최소 약 ${Math.round(afterXp).toLocaleString()} EXP를 만족하는 레벨: ${finalLevel.koNameColor} ${finalLevel.koNameBoots}`,
+			`${finalLevel.koNameColor} ${finalLevel.koNameBoots} 달성 조건: ${finalLevel.xp.toLocaleString()} EXP`,
+			`${finalNext ? finalNext.koNameColor + ' ' + finalNext.koNameBoots : '최대 레벨'} 달성 조건: ${finalNext ? finalNext.xp.toLocaleString() : ''} EXP`,
+			`${finalNext ? finalNext.koNameColor + ' ' + finalNext.koNameBoots : ''}로 레벨업 시 필요한 추가 경험치: ${additionalNeeded.toLocaleString()} EXP`,
+			`교환 후 경험치에서 ${finalLevel.koNameColor} ${finalLevel.koNameBoots} 최소 경험치를 빼면: ${(afterXp - finalLevel.xp).toLocaleString()} EXP`,
+			`교환 후 레벨의 퍼센티지 계산: ${(within / (additionalNeeded || 1) * 100).toFixed(2)}%`
+		]);
+	});
+});
