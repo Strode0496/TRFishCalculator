@@ -80,9 +80,14 @@ function calculate() {
 	if (isNaN(percent) || percent < 0 || percent >= 100) {
 		currentExpDisplay.textContent = "";
 		afterExpDisplay.textContent = "";
-		afterLevelDisplay.textContent = "";
 		pctBefore.textContent = "퍼센티지 값은 0 ~ 99.99 사이의 값으로 입력해주세요.";
 		pctAfter.textContent = "";
+
+		barBefore.style.width = '0%';
+		barAfter.style.width = '0%';
+		iconAfter.src = 'levelIcons-svg/1.svg';
+		iconAfter.alt = '1.svg';
+		
 		return;
 		// return은 오류 발생 시 아래 함수들의 실행을 중단
 	}
