@@ -126,6 +126,22 @@
 	{"level": 109, "koNameColor": "초록색", "koNameBoots": "프라우드윙부츠", "color": "green", "boots": "proud", "xp": 5385783700},
 	{"level": 110, "koNameColor": "파란색", "koNameBoots": "프라우드윙부츠", "color": "blue", "boots": "proud", "xp": 5985783700},
 	{"level": 111, "koNameColor": "남색", "koNameBoots": "프라우드윙부츠", "color": "navy", "boots": "proud", "xp": 6585783700},
-	{"level": 112, "koNameColor": "보라색", "koNameBoots": "프라우드윙부츠", "color": "purple", "boots": "proud", "xp": 7185783700}
+	{"level": 112, "koNameColor": "보라색", "koNameBoots": "프라우드윙부츠", "color": "purple", "boots": "proud", "xp": 7185783700},
 
+	{"level": 113, "koNameColor": "빨간색", "koNameBoots": "크로노스윙부츠", "color": "red", "boots": "cronus", "xp": 9341518810},
+	{"level": 114, "koNameColor": "주황색", "koNameBoots": "크로노스윙부츠", "color": "orange", "boots": "cronus", "xp": 10555916255},
+	{"level": 115, "koNameColor": "노란색", "koNameBoots": "크로노스윙부츠", "color": "yellow", "boots": "cronus", "xp": 11928185368},
+	{"level": 116, "koNameColor": "초록색", "koNameBoots": "크로노스윙부츠", "color": "green", "boots": "cronus", "xp": 13478849466},
+	{"level": 117, "koNameColor": "파란색", "koNameBoots": "크로노스윙부츠", "color": "blue", "boots": "cronus", "xp": 15231099897},
+	{"level": 118, "koNameColor": "남색", "koNameBoots": "크로노스윙부츠", "color": "navy", "boots": "cronus", "xp": 17211142883},
+	{"level": 119, "koNameColor": "보라색", "koNameBoots": "크로노스윙부츠", "color": "purple", "boots": "cronus", "xp": 19448591458},
+	
+	{"level": 120, "koNameColor": "빨간색", "koNameBoots": "인페르노윙부츠", "color": "red", "boots": "inferno", "xp": 25283168896},
+	{"level": 121, "koNameColor": "주황색", "koNameBoots": "인페르노윙부츠", "color": "orange", "boots": "inferno", "xp": 28569980852},
+	{"level": 122, "koNameColor": "노란색", "koNameBoots": "인페르노윙부츠", "color": "yellow", "boots": "inferno", "xp": 32284078363},
+	{"level": 123, "koNameColor": "초록색", "koNameBoots": "인페르노윙부츠", "color": "green", "boots": "inferno", "xp": 36481008550},
+	{"level": 124, "koNameColor": "파란색", "koNameBoots": "인페르노윙부츠", "color": "blue", "boots": "inferno", "xp": 41223539662},
+	{"level": 125, "koNameColor": "남색", "koNameBoots": "인페르노윙부츠", "color": "navy", "boots": "inferno", "xp": 46582599818},
+	{"level": 126, "koNameColor": "보라색", "koNameBoots": "인페르노윙부츠", "color": "purple", "boots": "inferno", "xp": 52638337794}
+	
 ]
