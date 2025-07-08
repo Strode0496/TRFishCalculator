@@ -109,11 +109,12 @@ function calculate() {
 
 	// 입력 아이콘 src 값을 변경
 	iconBefore.src = `levelIcons-svg/${currentLevel.level}.svg`;
+	iconBefore.alt = `${currentLevel.level}.svg`;
 
 	// 입력 퍼센티지 바와 텍스트 바 그래픽을 반영
 	let displayPctBefore = percent;
 	barBefore.style.width = displayPctBefore + '%';
-	pctBefore.textContent = displayPctBefore.toFixed(2) + '%';
+	pctBefore.textContent = `Lv.${currentLevel.level} ${currentLevel.koNameColor} ${currentLevel.koNameBoots} ${displayPctBefore.toFixed(2)}%`;
 
 	// 출력 값 계산
 	currentExpDisplay.textContent = Math.round(currentXp).toLocaleString();
@@ -135,12 +136,13 @@ function calculate() {
 	}
 
 	// 출력 아이콘 src 변경
-	iconAfter.src = `levelIcons-svg/${final.level}.svg`;
+	iconAfter.src = `levelIcons-svg/${currentLevel.level}.svg`;
+	iconAfter.alt = `${currentLevel.level}.svg`;
 	// 출력 퍼센티지 바 & 텍스트 반영
 	barAfter.style.width = finalPercent + '%';
-	pctAfter.textContent = finalPercent.toFixed(2) + '%';
+	pctAfter.textContent  = `Lv.${final.level} ${final.koNameColor} ${final.koNameBoots} ${finalPercent.toFixed(2)}%`;
 
-	afterLevelDisplay.textContent = `${final.koNameColor} ${final.koNameBoots}, 약 ${Math.round(finalPercent * 100) / 100}%`;
+	// afterLevelDisplay.textContent = `${final.koNameColor} ${final.koNameBoots}, 약 ${Math.round(finalPercent * 100) / 100}%`;
 }
 
 // 이벤트리스너 동일
