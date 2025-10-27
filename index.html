@@ -75,6 +75,21 @@
 			border: solid 2px #0782dd; border-radius: 10px; color: #0782dd;
 		}
 
+		/*로그 버튼*/
+		#logOpenButton{
+			width: 74px; height: 20px;
+			position: absolute; left: -90px; top: 0;
+			font-size: 0.9em; color: white; text-shadow: 0px 1px #0782dd, 1px 0px #0782dd, 0px -1px #0782dd, -1px 0px #0782dd;
+			border: solid 1px #0782dd; border-radius: 2px; background-color: transparent;
+		}
+		#logOpenButton:hover{
+			/*background-color: #0782dd;*/
+			color: #0782dd; text-shadow: 0px 1px white, 1px 0px white, 0px -1px white, -1px 0px white; border: solid 1px white; 
+		}
+		#logOpenButton:active{
+			top: 1px;
+		}
+
 		/*안쪽 파란색 컨테이너*/
 		.innerContainer{
 			background-color: #3bbdfd;
@@ -126,6 +141,21 @@
 			line-height: 1.2em;
 			font-size: 0.9em;
 			width: 220px;
+		}
+		#fishExpSmallExplain{
+			display: none;
+		}
+
+		#fishExpSmallButton{
+			width: 180px; height: 20px;
+			color: white; text-shadow: 0px 1px #CB5C27, 1px 0px #CB5C27, 0px -1px #CB5C27, -1px 0px #CB5C27;
+			border: solid 1px #BA4E1A; border-radius: 2px; background: linear-gradient(to bottom, #FFCB33 0%, #FFB933 39%, #FFA800 40%, #FFA900 100%);
+		}
+		#fishExpSmallButton:hover{
+			background: linear-gradient(to bottom, #FFDA80 0%, #FFCE71 39%, #FFC24D 40%, #FFC24D 100%);
+		}
+		#fishExpSmallButton:active{
+			margin-top: 1px;
 		}
 
 		/*입력과 출력 레벨 시각적 표현*/
@@ -272,9 +302,10 @@
 		<div class="outContainer">
 
 			<!-- 로그 공간 -->
-			<div id="logMessage">
+			<div id="logMessage" style="display: none;">
 				<p style="font-weight: bold; font-size: 1.2em; margin-bottom: 20px;">LOG</p>
 			</div>
+			<button id="logOpenButton" onclick="logButtonClick()">LOG 열기</button>
 
 			<div class="innerContainer" style="margin-top: 0;">
 
@@ -319,7 +350,8 @@
 
 					<div class="expInputDescription">
 						<p style="margin-bottom: 4px;">공원의 <span style="color: palegreen; font-weight: bold;">캡틴 마도로스 NPC - 어획물 교환하기 - Exp로 교환하기</span>에 있는 '페이지전체'의 값들을 왼쪽 입력란에 각각 전부 입력해주시면 됩니다.</p>
-						<p>'교환 가능 수치 초과' 상태일 때는 아래의 작은 12개 칸에 그 페이지의 물고기들에 각각 <span style="color: palegreen; font-weight: bold;">교환 수량 최대</span>를 누르면 나오는 값들을 적어주세요!</p>
+						<button id="fishExpSmallButton" onclick="expSmallButtonClick()">교환 가능 수치 초과 상태라면?</button>
+						<p id="fishExpSmallExplain">'교환 가능 수치 초과' 상태일 때는 아래의 작은 12개 칸에 그 페이지의 물고기들에 각각 <span style="color: palegreen; font-weight: bold;">교환 수량 최대</span>를 누르면 나오는 값들을 적어주세요!</p>
 					</div>
 
 					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
@@ -327,18 +359,19 @@
 					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
 					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
 					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0">
+					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
 
 				</div>
 
@@ -381,7 +414,9 @@
 
 <script>
 	
+	// 드롭다운 메뉴
 	function initDropdowns() {
+
 		// 드롭다운 초기화
 		colorSelect.innerHTML = "";
 		bootsSelect.innerHTML = "";
@@ -401,6 +436,7 @@
 			option.textContent = levelData.find(lvl => lvl.boots === boots).koNameBoots;
 			bootsSelect.appendChild(option);
 		});
+
 	}
 
 	// 현재 테일즈런너의 레벨들을 변수에 JSON 형식으로 입력
@@ -552,15 +588,6 @@
 		
 	];
 
-	// fetch('levelData.json')
-	// .then(res => res.json())
-	// .then(data => {
-	// 	levelData = data;
-	// 	initDropdowns();
-	// 	calculate();
-	// })
-	// .catch(err => console.error('레벨 데이터 로드 실패:', err));
-
 	// 입력 요소들에서 값 가져오기, 각각 레벨 색상, 레벨 신발, 퍼센티지 값, 페이지전체 경험치 값들, 그리고 맨 아래 두 개는 출력 영역
 	const colorSelect = document.getElementById('colorSelect');
 	const bootsSelect = document.getElementById('bootsSelect');
@@ -606,11 +633,6 @@
 		});
 		logDiv.appendChild(document.createElement('br'));
 	}
-
-	// function clearLogs() {
-	// 	const logDiv = document.getElementById('logMessage');
-	// 	if (logDiv) logDiv.textContent = '';
-	// }
 
 	// 계산 함수
 	function calculate() {
@@ -688,11 +710,11 @@
 		// 출력 아이콘 src 변경
 		iconAfter.src = `levelIcons/${final.level}.webp`;
 		iconAfter.alt = `${final.level}.webp`;
+
 		// 출력 퍼센티지 바 & 텍스트 반영
 		barAfter.style.width = finalPercent + '%';
 		pctAfter.textContent  = `Lv.${final.level} ${final.koNameColor} ${final.koNameBoots} ${finalPercent.toFixed(2)}%`;
 
-		// afterLevelDisplay.textContent = `${final.koNameColor} ${final.koNameBoots}, 약 ${Math.round(finalPercent * 100) / 100}%`;
 	}
 
 	// 이벤트리스너 동일
@@ -702,6 +724,48 @@
 	fishExpInputs.forEach(i=>i.addEventListener('input', calculate));
 
 	calculate();
+
+
+
+	// 버튼 두 개 클릭 작동 함수
+
+	function logButtonClick(){
+
+		// 숨겨야 할 버튼 요소 가져오기
+		const logButton = document.getElementById('logOpenButton');
+		
+		// 나타나게 할 요소 가져오기
+		const logBox = document.getElementById('logMessage');
+		
+		// 버튼 숨기기
+		logButton.style.display = 'none';
+		
+		// 로그 박스 보이기
+		logBox.style.display = 'block';
+
+	}
+
+	function expSmallButtonClick(){
+
+		// 숨겨야 할 버튼 요소 가져오기
+		const expSmallButton = document.getElementById('fishExpSmallButton');
+		
+		// 나타나게 할 요소 가져오기
+		const expSmallExplain = document.getElementById('fishExpSmallExplain');
+		const expSmallInputs = document.querySelectorAll('.fishExpSmall');
+		
+		// 버튼 숨기기
+		expSmallButton.style.display = 'none';
+		
+		// 추가 입력 박스 보이기
+		expSmallExplain.style.display = 'block';
+		expSmallInputs.forEach(element => {
+			element.style.display = 'inline-block'; 
+		});
+
+	}
+
+
 
 	// 이 아래부터는 왼쪽 'LOG' 칸에 기록할 용도
 
@@ -729,7 +793,7 @@
 		}
 	});
 
-	// 퍼센티지 입력 blur 로그
+	// 퍼센티지 입력 blur(입력란의 포커스가 취소됐을 때) 로그
 	percentInput.addEventListener('blur', () => {
 		const p = parseFloat(percentInput.value);
 		if (isNaN(p) || p < 0 || p >= 100) return;
@@ -752,7 +816,7 @@
 		]);
 	});
 
-	// 어획물 EXP 입력 blur 로그
+	// 어획물 EXP 입력 blur(입력란의 포커스가 취소됐을 때) 로그
 	fishExpInputs.forEach(input => {
 		input.addEventListener('blur', () => {
 			const curr = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
