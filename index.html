@@ -605,6 +605,38 @@
 	const pctBefore = document.getElementById('percentDisplayBefore');
 	const pctAfter = document.getElementById('percentDisplayAfter');
 
+	// 입력했던 값 기억
+	function saveInputs() {
+		localStorage.setItem('color', colorSelect.value);
+		localStorage.setItem('boots', bootsSelect.value);
+		localStorage.setItem('percent', percentInput.value);
+
+		const fishValues = [];
+		fishExpInputs.forEach(input => {
+			fishValues.push(input.value);
+		});
+		localStorage.setItem('fishExps', JSON.stringify(fishValues));
+	}
+
+	// 입력했던 값 복원
+	function loadInputs() {
+
+		const savedColor = localStorage.getItem('color');
+		const savedBoots = localStorage.getItem('boots');
+		const savedPercent = localStorage.getItem('percent');
+		const savedFish = JSON.parse(localStorage.getItem('fishExps') || '[]');
+
+		if (savedColor) colorSelect.value = savedColor;
+		if (savedBoots) bootsSelect.value = savedBoots;
+		if (savedPercent !== null) percentInput.value = savedPercent;
+
+		fishExpInputs.forEach((input, idx) => {
+			if (savedFish[idx] !== undefined) {
+				input.value = savedFish[idx];
+			}
+		});
+	}
+
 	// 레벨 색상과 신발 종류 입력하는 select 부분의 선택지 동적 추가
 	const uniqueColors = [...new Set(levelData.map(lvl => lvl.color))];
 	uniqueColors.forEach(color => {
@@ -717,18 +749,33 @@
 
 	}
 
-	// 이벤트리스너 동일
-	colorSelect.addEventListener('change', calculate);
-	bootsSelect.addEventListener('change', calculate);
-	percentInput.addEventListener('input', calculate);
-	fishExpInputs.forEach(i=>i.addEventListener('input', calculate));
+	// 이벤트 리스너
+	colorSelect.addEventListener('change', () => {
+		saveInputs();
+		calculate();
+	});
 
+	bootsSelect.addEventListener('change', () => {
+		saveInputs();
+		calculate();
+	});
+
+	percentInput.addEventListener('input', () => {
+		saveInputs();
+		calculate();
+	});
+
+	fishExpInputs.forEach(i =>
+		i.addEventListener('input', () => {
+			saveInputs();
+			calculate();
+		})
+	);
+
+	loadInputs();
 	calculate();
 
-
-
 	// 버튼 두 개 클릭 작동 함수
-
 	function logButtonClick(){
 
 		// 숨겨야 할 버튼 요소 가져오기
@@ -764,8 +811,6 @@
 		});
 
 	}
-
-
 
 	// 이 아래부터는 왼쪽 'LOG' 칸에 기록할 용도
 
