@@ -125,6 +125,7 @@
 		.fishExp{
 			width: 40%;
 			margin-bottom: 4px;
+			text-align: right;
 		}
 		.fishExpSmall{
 			width: 13%;
@@ -219,13 +220,13 @@
 				padding: 10px;
 			}
 
-		/*로그 박스*/
-		#logMessage{
-			display: none;
-		}
-		#logMessage>p{
-			display: none;
-		}
+			/*로그 박스*/
+			#logMessage{
+				display: none;
+			}
+			#logMessage>p{
+				display: none;
+			}
 
 			/*입력란 스타일 */
 			#colorSelect, #bootsSelect, #percentInput, .fishExp{
@@ -322,7 +323,7 @@
 						<select id="bootsSelect"></select>
 
 						<!-- 현재 퍼센티지 입력 -->
-						<input type="number" id="percentInput" min="0" max="100" step="0.01" value="0">%
+						<input type="text" id="percentInput" inputmode="decimal" value="0">%
 
 					</div>
 
@@ -354,24 +355,24 @@
 						<p id="fishExpSmallExplain">'교환 가능 수치 초과' 상태일 때는 아래의 작은 12개 칸에 그 페이지의 물고기들에 각각 <span style="color: palegreen; font-weight: bold;">교환 수량 최대</span>를 누르면 나오는 값들을 적어주세요!</p>
 					</div>
 
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp" min="0" step="1" value="0">EXP<br>
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
-					<input type="number" class="fishExp fishExpSmall" min="0" step="1" value="0" style="display: none;">
+					<input type="text" class="fishExp" value="0" inputmode="numeric">EXP<br>
+					<input type="text" class="fishExp" value="0" inputmode="numeric">EXP<br>
+					<input type="text" class="fishExp" value="0" inputmode="numeric">EXP<br>
+					<input type="text" class="fishExp" value="0" inputmode="numeric">EXP<br>
+					<input type="text" class="fishExp" value="0" inputmode="numeric">EXP<br>
+					<input type="text" class="fishExp" value="0" inputmode="numeric">EXP<br>
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
+					<input type="text" class="fishExp fishExpSmall" value="0" inputmode="numeric" style="display: none;">
 
 				</div>
 
@@ -414,32 +415,11 @@
 
 <script>
 	
-	// 드롭다운 메뉴
-	function initDropdowns() {
 
-		// 드롭다운 초기화
-		colorSelect.innerHTML = "";
-		bootsSelect.innerHTML = "";
+	// =========================
+	// 레벨 데이터
+	// =========================
 
-		const uniqueColors = [...new Set(levelData.map(lvl => lvl.color))];
-		uniqueColors.forEach(color => {
-			const option = document.createElement('option');
-			option.value = color;
-			option.textContent = levelData.find(lvl => lvl.color === color).koNameColor;
-			colorSelect.appendChild(option);
-		});
-
-		const uniqueBoots = [...new Set(levelData.map(lvl => lvl.boots))];
-		uniqueBoots.forEach(boots => {
-			const option = document.createElement('option');
-			option.value = boots;
-			option.textContent = levelData.find(lvl => lvl.boots === boots).koNameBoots;
-			bootsSelect.appendChild(option);
-		});
-
-	}
-
-	// 현재 테일즈런너의 레벨들을 변수에 JSON 형식으로 입력
 	let levelData = [
 
 		{"level": 1, "koNameColor": "빨간색", "koNameBoots": "병아리", "color": "red", "boots": "chick", "xp": 0},
@@ -587,315 +567,540 @@
 		{"level": 126, "koNameColor": "보라색", "koNameBoots": "인페르노윙부츠", "color": "purple", "boots": "inferno", "xp": 52638337794}
 		
 	];
+	
 
-	// 입력 요소들에서 값 가져오기, 각각 레벨 색상, 레벨 신발, 퍼센티지 값, 페이지전체 경험치 값들, 그리고 맨 아래 두 개는 출력 영역
+	// =========================
+	// DOM 요소
+	// =========================
+
 	const colorSelect = document.getElementById('colorSelect');
 	const bootsSelect = document.getElementById('bootsSelect');
 	const percentInput = document.getElementById('percentInput');
+
 	const fishExpInputs = document.querySelectorAll('.fishExp');
+
 	const currentExpDisplay = document.getElementById('currentExpDisplay');
 	const afterExpDisplay = document.getElementById('afterExpDisplay');
 	const afterLevelDisplay = document.getElementById('afterLevelDisplay');
 
-	// 디스플레이 요소들 참조
 	const iconBefore = document.querySelector('#iconDisplayBefore img');
 	const iconAfter = document.querySelector('#iconDisplayAfter img');
+
 	const barBefore = document.getElementById('levelBarDisplayInnerBefore');
 	const barAfter = document.getElementById('levelBarDisplayInnerAfter');
+
 	const pctBefore = document.getElementById('percentDisplayBefore');
 	const pctAfter = document.getElementById('percentDisplayAfter');
 
-	// 입력했던 값 기억
+
+	// =========================
+	// 유틸 함수
+	// =========================
+
+	const parseNumber = value =>
+		Number(String(value).replace(/,/g, '')) || 0;
+
+	const sanitizeNumber = value =>
+		String(value).replace(/[^\d]/g, '');
+
+	const formatNumber = value =>
+		Number(value).toLocaleString();
+
+	const getLevel = (color, boots) =>
+		levelData.find(lvl => lvl.color === color && lvl.boots === boots);
+
+	const getNextLevel = level =>
+		levelData.find(lvl => lvl.level === level.level + 1);
+
+	const sumFishXp = () =>
+		[...fishExpInputs].reduce((sum, input) =>
+			sum + parseNumber(input.value), 0);
+
+	const updateImage = (img, level) => {
+		img.src = `levelIcons/${level.level}.webp`;
+		img.alt = `${level.level}.webp`;
+	};
+
+	const updateBar = (bar, text, level, percent) => {
+
+		bar.style.width = `${percent}%`;
+
+		text.textContent =
+			`Lv.${level.level} ${level.koNameColor} ${level.koNameBoots} ${percent.toFixed(2)}%`;
+
+	};
+
+
+	// =========================
+	// 드롭다운 초기화
+	// =========================
+
+	function createOptions(select, key, textKey) {
+
+		const uniqueValues = [...new Set(levelData.map(v => v[key]))];
+
+		select.innerHTML = '';
+
+		uniqueValues.forEach(value => {
+
+			const data = levelData.find(v => v[key] === value);
+
+			const option = document.createElement('option');
+
+			option.value = value;
+			option.textContent = data[textKey];
+
+			select.appendChild(option);
+
+		});
+
+	}
+
+	function initDropdowns() {
+
+		createOptions(colorSelect, 'color', 'koNameColor');
+		createOptions(bootsSelect, 'boots', 'koNameBoots');
+
+	}
+
+
+	// =========================
+	// localStorage 저장 / 복원
+	// =========================
+
 	function saveInputs() {
+
 		localStorage.setItem('color', colorSelect.value);
 		localStorage.setItem('boots', bootsSelect.value);
 		localStorage.setItem('percent', percentInput.value);
 
-		const fishValues = [];
-		fishExpInputs.forEach(input => {
-			fishValues.push(input.value);
-		});
-		localStorage.setItem('fishExps', JSON.stringify(fishValues));
+		localStorage.setItem(
+			'fishExps',
+			JSON.stringify(
+				[...fishExpInputs].map(input =>
+					sanitizeNumber(input.value))
+			)
+		);
+
 	}
 
-	// 입력했던 값 복원
 	function loadInputs() {
 
-		const savedColor = localStorage.getItem('color');
-		const savedBoots = localStorage.getItem('boots');
-		const savedPercent = localStorage.getItem('percent');
-		const savedFish = JSON.parse(localStorage.getItem('fishExps') || '[]');
+		const savedFish =
+			JSON.parse(localStorage.getItem('fishExps') || '[]');
 
-		if (savedColor) colorSelect.value = savedColor;
-		if (savedBoots) bootsSelect.value = savedBoots;
-		if (savedPercent !== null) percentInput.value = savedPercent;
+		colorSelect.value =
+			localStorage.getItem('color') || colorSelect.value;
+
+		bootsSelect.value =
+			localStorage.getItem('boots') || bootsSelect.value;
+
+		percentInput.value =
+			localStorage.getItem('percent') || percentInput.value;
 
 		fishExpInputs.forEach((input, idx) => {
-			if (savedFish[idx] !== undefined) {
-				input.value = savedFish[idx];
+
+			const value = savedFish[idx];
+
+			if (value !== undefined) {
+
+				const clean = sanitizeNumber(value);
+
+				input.value =
+					clean === ''
+						? ''
+						: formatNumber(clean);
+
 			}
+
 		});
+
 	}
 
-	// 레벨 색상과 신발 종류 입력하는 select 부분의 선택지 동적 추가
-	const uniqueColors = [...new Set(levelData.map(lvl => lvl.color))];
-	uniqueColors.forEach(color => {
-		const option = document.createElement('option');
-		option.value = color;
-		option.textContent = levelData.find(lvl => lvl.color === color).koNameColor;
-		colorSelect.appendChild(option);
-	});
 
-	const uniqueBoots = [...new Set(levelData.map(lvl => lvl.boots))];
-	uniqueBoots.forEach(boots => {
-		const option = document.createElement('option');
-		option.value = boots;
-		option.textContent = levelData.find(lvl => lvl.boots === boots).koNameBoots;
-		bootsSelect.appendChild(option);
-	});
+	// =========================
+	// 로그 출력
+	// =========================
 
-	// 로그 기록 함수
 	function appendLog(lines) {
+
 		const logDiv = document.getElementById('logMessage');
+
 		if (!logDiv) return;
+
 		lines.forEach(line => {
+
 			const p = document.createElement('p');
+
 			p.textContent = line;
+
 			logDiv.appendChild(p);
+
 		});
+
 		logDiv.appendChild(document.createElement('br'));
+
 	}
 
+
+	// =========================
 	// 계산 함수
+	// =========================
+
 	function calculate() {
 
-		// 색상과 신발 입력값을 가져오기
 		const color = colorSelect.value;
 		const boots = bootsSelect.value;
 
-		// 퍼센티지 입력값을 수로 변환하기
 		const percent = parseFloat(percentInput.value);
 
-		// 퍼센티지 값의 범위를 검사하기 (0부터 99.99까지)
 		if (isNaN(percent) || percent < 0 || percent >= 100) {
-			currentExpDisplay.textContent = "";
-			afterExpDisplay.textContent = "";
-			// afterLevelDisplay.textContent = "";
-			pctBefore.textContent = "퍼센티지 값은 0 ~ 99.99 사이의 값으로 입력해주세요.";
-			pctAfter.textContent = "";
+
+			currentExpDisplay.textContent = '';
+			afterExpDisplay.textContent = '';
+
+			pctBefore.textContent =
+				'퍼센티지 값은 0 ~ 99.99 사이의 값으로 입력해주세요.';
+
+			pctAfter.textContent = '';
 
 			barBefore.style.width = '0%';
 			barAfter.style.width = '0%';
+
 			iconAfter.src = 'levelIcons/1.webp';
 			iconAfter.alt = '1.webp';
+
+			return;
+
+		}
+
+		const currentLevel = getLevel(color, boots);
+
+		if (!currentLevel) return;
+
+		const nextLevel = getNextLevel(currentLevel);
+
+		const nextXp = nextLevel
+			? nextLevel.xp
+			: currentLevel.xp;
+
+		const currentXp =
+			currentLevel.xp +
+			(nextXp - currentLevel.xp) * (percent / 100);
+
+		const totalFishXp = sumFishXp();
+
+		const afterXp = currentXp + totalFishXp;
+
+
+		// 현재 상태 출력
+		updateImage(iconBefore, currentLevel);
+		updateBar(barBefore, pctBefore, currentLevel, percent);
+
+		currentExpDisplay.textContent =
+			formatNumber(Math.round(currentXp));
+
+		afterExpDisplay.textContent =
+			formatNumber(Math.round(afterXp));
+
+
+		// 최종 레벨 계산
+		let finalLevel = levelData[0];
+
+		levelData.forEach(level => {
+
+			if (afterXp >= level.xp) {
+				finalLevel = level;
+			}
+
+		});
+
+		const finalNext = getNextLevel(finalLevel);
+
+		const finalPercent = finalNext
+			? Math.min(
+				((afterXp - finalLevel.xp) /
+				(finalNext.xp - finalLevel.xp)) * 100,
+				100
+			)
+			: 100;
+
+
+		// 최종 상태 출력
+		updateImage(iconAfter, finalLevel);
+
+		updateBar(
+			barAfter,
+			pctAfter,
+			finalLevel,
+			finalPercent
+		);
+
+	}
+
+
+	// =========================
+	// 퍼센티지 입력 처리
+	// =========================
+
+	function sanitizePercentInput(value) {
+
+		let raw = value.replace(/[^\d.]/g, '');
+
+		const parts = raw.split('.');
+
+		if (parts.length > 2) {
+			raw = parts[0] + '.' + parts.slice(1).join('');
+		}
+
+		if (raw.includes('.')) {
+
+			const [integer, decimal] = raw.split('.');
+
+			raw = integer + '.' + decimal.slice(0, 2);
+
+		}
+
+		return raw;
+
+	}
+
+
+	// =========================
+	// 공통 업데이트
+	// =========================
+
+	function updateAll() {
+
+		saveInputs();
+		calculate();
+
+	}
+
+
+	// =========================
+	// 이벤트
+	// =========================
+
+	[colorSelect, bootsSelect].forEach(element => {
+
+		element.addEventListener('change', updateAll);
+
+	});
+
+
+	percentInput.addEventListener('input', e => {
+
+		if (e.isComposing) return;
+
+		e.target.value =
+			sanitizePercentInput(e.target.value);
+
+		updateAll();
+
+	});
+
+
+	fishExpInputs.forEach(input => {
+
+		input.addEventListener('input', e => {
+
+			if (e.isComposing) return;
+
+			const raw =
+				sanitizeNumber(e.target.value);
+
+			e.target.value =
+				raw === ''
+					? ''
+					: formatNumber(raw);
+
+			updateAll();
+
+		});
+
+		input.addEventListener('blur', () => {
+
+			if (sanitizeNumber(input.value) === '') {
+
+				input.value = '0';
+
+				updateAll();
+
+			}
+
+			writeFishLog();
+
+		});
+
+	});
+
+
+	// =========================
+	// 로그 이벤트
+	// =========================
+
+	function writeLevelLog() {
+
+		const level =
+			getLevel(colorSelect.value, bootsSelect.value);
+
+		if (!level) return;
+
+		appendLog([
+			`현재 레벨 입력: ${level.koNameColor} ${level.koNameBoots}`,
+			`${level.koNameColor} ${level.koNameBoots} 경험치: ${formatNumber(level.xp)} EXP 이상`
+		]);
+
+	}
+
+	function writePercentLog() {
+
+		const percent =
+			parseFloat(percentInput.value);
+
+		if (isNaN(percent) || percent < 0 || percent >= 100) {
 			return;
 		}
 
-		const currentLevel = levelData.find(lvl => lvl.color === color && lvl.boots === boots);
-		if (!currentLevel) return;
+		const current =
+			getLevel(colorSelect.value, bootsSelect.value);
 
-		const next = levelData.find(lvl => lvl.level === currentLevel.level + 1);
+		const next = getNextLevel(current);
 
-		// 최고 레벨에서는 더 이상 계산하지 않음
-		let nextXp;
-		if (next) {
-			nextXp = next.xp;
-		} else {
-			nextXp = currentLevel.xp;
-		}
+		if (!current || !next) return;
 
-		const currentXp = currentLevel.xp + (nextXp - currentLevel.xp) * (percent/100);
+		const needed = next.xp - current.xp;
 
-		// 총 어획물 EXP 합산
-		let totalFishXp = 0;
-		fishExpInputs.forEach(i => totalFishXp += parseInt(i.value)||0);
-		const afterXp = currentXp + totalFishXp;
-
-		// 입력 아이콘 src 값을 변경
-		iconBefore.src = `levelIcons/${currentLevel.level}.webp`;
-		iconBefore.alt = `${currentLevel.level}.webp`;
-
-		// 입력 퍼센티지 바와 텍스트 바 그래픽을 반영
-		let displayPctBefore = percent;
-		barBefore.style.width = displayPctBefore + '%';
-		pctBefore.textContent = `Lv.${currentLevel.level} ${currentLevel.koNameColor} ${currentLevel.koNameBoots} ${displayPctBefore.toFixed(2)}%`;
-
-		// 출력 값 계산
-		currentExpDisplay.textContent = Math.round(currentXp).toLocaleString();
-		afterExpDisplay.textContent = Math.round(afterXp).toLocaleString();
-
-		// 출력 최종 퍼센티지 과도한 경우 단순화
-		let final = levelData[0];
-		levelData.forEach(lvl => { if (afterXp >= lvl.xp) final = lvl; });
-
-		const finalNext = levelData.find(lvl => lvl.level === final.level + 1);
-		let finalPercent;
-		if (!finalNext) {
-			// 최고레벨 도달
-			finalPercent = 100;
-		} else {
-			const within = afterXp - final.xp;
-			const gap = finalNext.xp - final.xp;
-			finalPercent = Math.min((within / gap) * 100, 100);
-		}
-
-		// 출력 아이콘 src 변경
-		iconAfter.src = `levelIcons/${final.level}.webp`;
-		iconAfter.alt = `${final.level}.webp`;
-
-		// 출력 퍼센티지 바 & 텍스트 반영
-		barAfter.style.width = finalPercent + '%';
-		pctAfter.textContent  = `Lv.${final.level} ${final.koNameColor} ${final.koNameBoots} ${finalPercent.toFixed(2)}%`;
-
-	}
-
-	// 이벤트 리스너
-	colorSelect.addEventListener('change', () => {
-		saveInputs();
-		calculate();
-	});
-
-	bootsSelect.addEventListener('change', () => {
-		saveInputs();
-		calculate();
-	});
-
-	percentInput.addEventListener('input', () => {
-		saveInputs();
-		calculate();
-	});
-
-	fishExpInputs.forEach(i =>
-		i.addEventListener('input', () => {
-			saveInputs();
-			calculate();
-		})
-	);
-
-	loadInputs();
-	calculate();
-
-	// 버튼 두 개 클릭 작동 함수
-	function logButtonClick(){
-
-		// 숨겨야 할 버튼 요소 가져오기
-		const logButton = document.getElementById('logOpenButton');
-		
-		// 나타나게 할 요소 가져오기
-		const logBox = document.getElementById('logMessage');
-		
-		// 버튼 숨기기
-		logButton.style.display = 'none';
-		
-		// 로그 박스 보이기
-		logBox.style.display = 'block';
-
-	}
-
-	function expSmallButtonClick(){
-
-		// 숨겨야 할 버튼 요소 가져오기
-		const expSmallButton = document.getElementById('fishExpSmallButton');
-		
-		// 나타나게 할 요소 가져오기
-		const expSmallExplain = document.getElementById('fishExpSmallExplain');
-		const expSmallInputs = document.querySelectorAll('.fishExpSmall');
-		
-		// 버튼 숨기기
-		expSmallButton.style.display = 'none';
-		
-		// 추가 입력 박스 보이기
-		expSmallExplain.style.display = 'block';
-		expSmallInputs.forEach(element => {
-			element.style.display = 'inline-block'; 
-		});
-
-	}
-
-	// 이 아래부터는 왼쪽 'LOG' 칸에 기록할 용도
-
-	// 색상 드롭다운 로그
-	colorSelect.addEventListener('change', () => {
-		// clearLogs();
-		const lvl = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
-		if (lvl) {
-			appendLog([
-				`현재 레벨 입력: ${lvl.koNameColor} ${lvl.koNameBoots}`,
-				`${lvl.koNameColor} ${lvl.koNameBoots} 경험치: ${lvl.xp.toLocaleString()} EXP 이상`
-			]);
-		}
-	});
-
-	// 신발 드롭다운 로그
-	bootsSelect.addEventListener('change', () => {
-		// clearLogs();
-		const lvl = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
-		if (lvl) {
-			appendLog([
-				`현재 레벨 입력: ${lvl.koNameColor} ${lvl.koNameBoots}`,
-				`${lvl.koNameColor} ${lvl.koNameBoots} 경험치: ${lvl.xp.toLocaleString()} EXP 이상`
-			]);
-		}
-	});
-
-	// 퍼센티지 입력 blur(입력란의 포커스가 취소됐을 때) 로그
-	percentInput.addEventListener('blur', () => {
-		const p = parseFloat(percentInput.value);
-		if (isNaN(p) || p < 0 || p >= 100) return;
-
-		const curr = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
-		const next = levelData.find(l => l.level === curr.level + 1);
-		if (!curr || !next) return;
-
-		const needed = next.xp - curr.xp;
-		const currXpCalc = curr.xp + needed * (p / 100);
+		const currentXp =
+			current.xp + needed * (percent / 100);
 
 		appendLog([
-			`현재 레벨의 퍼센티지 입력: ${p.toFixed(2)}%`,
-			`입력되어 있는 현재 레벨: ${curr.koNameColor} ${curr.koNameBoots}`,
+			`현재 레벨의 퍼센티지 입력: ${percent.toFixed(2)}%`,
+			`입력되어 있는 현재 레벨: ${current.koNameColor} ${current.koNameBoots}`,
 			`다음 레벨: ${next.koNameColor} ${next.koNameBoots}`,
-			`${curr.koNameColor} ${curr.koNameBoots} 달성 조건: ${curr.xp.toLocaleString()} EXP`,
-			`${next.koNameColor} ${next.koNameBoots} 달성 조건: ${next.xp.toLocaleString()} EXP`,
-			`${next.koNameColor} ${next.koNameBoots} 달성에 필요한 추가 경험치: ${needed.toLocaleString()} EXP`,
-			`입력된 퍼센티지로 현재 총 경험치 계산: ${curr.xp.toLocaleString()} + ${needed.toLocaleString()} * ${(p/100).toFixed(4)} = 약 ${Math.round(currXpCalc).toLocaleString()} EXP`
+			`${current.koNameColor} ${current.koNameBoots} 달성 조건: ${formatNumber(current.xp)} EXP`,
+			`${next.koNameColor} ${next.koNameBoots} 달성 조건: ${formatNumber(next.xp)} EXP`,
+			`${next.koNameColor} ${next.koNameBoots} 달성에 필요한 추가 경험치: ${formatNumber(needed)} EXP`,
+			`입력된 퍼센티지로 현재 총 경험치 계산: ${formatNumber(current.xp)} + ${formatNumber(needed)} * ${(percent / 100).toFixed(4)} = 약 ${formatNumber(Math.round(currentXp))} EXP`
 		]);
-	});
 
-	// 어획물 EXP 입력 blur(입력란의 포커스가 취소됐을 때) 로그
-	fishExpInputs.forEach(input => {
-		input.addEventListener('blur', () => {
-			const curr = levelData.find(l => l.color === colorSelect.value && l.boots === bootsSelect.value);
-			const next = levelData.find(l => l.level === curr.level + 1);
+	}
 
-			const p = parseFloat(percentInput.value);
-			const needed = next ? next.xp - curr.xp : 0;
-			const currXpCalc = curr.xp + (next ? needed * (p / 100) : 0);
+	function writeFishLog() {
 
-			let sumFish = 0;
-			fishExpInputs.forEach(inp => sumFish += parseInt(inp.value) || 0);
-			const afterXp = currXpCalc + sumFish;
+		const current =
+			getLevel(colorSelect.value, bootsSelect.value);
 
-			let finalLevel = levelData[0];
-			levelData.forEach(l => { if (afterXp >= l.xp) finalLevel = l; });
-			const finalNext = levelData.find(l => l.level === finalLevel.level + 1);
+		const next =
+			getNextLevel(current);
 
-			const additionalNeeded = finalNext ? finalNext.xp - finalLevel.xp : 0;
-			const within = afterXp - finalLevel.xp;
-			const finalPct = finalNext ? Math.min(within / additionalNeeded * 100, 100) : 100;
+		const percent =
+			parseFloat(percentInput.value);
 
-			appendLog([
-				`어획물 경험치 총 입력: ${sumFish.toLocaleString()} EXP`,
-				`현재 경험치: 약 ${Math.round(currXpCalc).toLocaleString()} EXP`,
-				`입력한 어획물들을 전부 EXP로 더하면: 약 ${Math.round(afterXp).toLocaleString()} EXP`,
-				`최소 약 ${Math.round(afterXp).toLocaleString()} EXP를 만족하는 레벨: ${finalLevel.koNameColor} ${finalLevel.koNameBoots}`,
-				`${finalLevel.koNameColor} ${finalLevel.koNameBoots} 달성 조건: ${finalLevel.xp.toLocaleString()} EXP`,
-				`${finalNext ? finalNext.koNameColor + ' ' + finalNext.koNameBoots : '최대 레벨'} 달성 조건: ${finalNext ? finalNext.xp.toLocaleString() : ''} EXP`,
-				`${finalNext ? finalNext.koNameColor + ' ' + finalNext.koNameBoots : ''}로 레벨업 시 필요한 추가 경험치: ${additionalNeeded.toLocaleString()} EXP`,
-				`교환 후 경험치에서 ${finalLevel.koNameColor} ${finalLevel.koNameBoots} 최소 경험치를 빼면: ${(afterXp - finalLevel.xp).toLocaleString()} EXP`,
-				`교환 후 레벨의 퍼센티지 계산: ${(within / (additionalNeeded || 1) * 100).toFixed(2)}%`
-			]);
+		const needed =
+			next ? next.xp - current.xp : 0;
+
+		const currentXp =
+			current.xp +
+			(next ? needed * (percent / 100) : 0);
+
+		const totalFishXp =
+			sumFishXp();
+
+		const afterXp =
+			currentXp + totalFishXp;
+
+		let finalLevel = levelData[0];
+
+		levelData.forEach(level => {
+
+			if (afterXp >= level.xp) {
+				finalLevel = level;
+			}
+
 		});
-	});
+
+		const finalNext =
+			getNextLevel(finalLevel);
+
+		const additionalNeeded =
+			finalNext
+				? finalNext.xp - finalLevel.xp
+				: 0;
+
+		const within =
+			afterXp - finalLevel.xp;
+
+		const finalPercent =
+			finalNext
+				? Math.min(
+					(within / additionalNeeded) * 100,
+					100
+				)
+				: 100;
+
+		appendLog([
+			`어획물 경험치 총 입력: ${formatNumber(totalFishXp)} EXP`,
+			`현재 경험치: 약 ${formatNumber(Math.round(currentXp))} EXP`,
+			`입력한 어획물들을 전부 EXP로 더하면: 약 ${formatNumber(Math.round(afterXp))} EXP`,
+			`최소 약 ${formatNumber(Math.round(afterXp))} EXP를 만족하는 레벨: ${finalLevel.koNameColor} ${finalLevel.koNameBoots}`,
+			`${finalLevel.koNameColor} ${finalLevel.koNameBoots} 달성 조건: ${formatNumber(finalLevel.xp)} EXP`,
+			`${finalNext ? finalNext.koNameColor + ' ' + finalNext.koNameBoots : '최대 레벨'} 달성 조건: ${finalNext ? formatNumber(finalNext.xp) : ''} EXP`,
+			`${finalNext ? finalNext.koNameColor + ' ' + finalNext.koNameBoots : ''}로 레벨업 시 필요한 추가 경험치: ${formatNumber(additionalNeeded)} EXP`,
+			`교환 후 경험치에서 ${finalLevel.koNameColor} ${finalLevel.koNameBoots} 최소 경험치를 빼면: ${formatNumber(afterXp - finalLevel.xp)} EXP`,
+			`교환 후 레벨의 퍼센티지 계산: ${finalPercent.toFixed(2)}%`
+		]);
+
+	}
+
+
+	// =========================
+	// 로그 이벤트 연결
+	// =========================
+
+	colorSelect.addEventListener('change', writeLevelLog);
+	bootsSelect.addEventListener('change', writeLevelLog);
+
+	percentInput.addEventListener('blur', writePercentLog);
+
+
+	// =========================
+	// 버튼 함수
+	// =========================
+
+	function logButtonClick() {
+
+		document.getElementById('logOpenButton').style.display = 'none';
+
+		document.getElementById('logMessage').style.display = 'block';
+
+	}
+
+	function expSmallButtonClick() {
+
+		document.getElementById('fishExpSmallButton').style.display = 'none';
+
+		document.getElementById('fishExpSmallExplain').style.display = 'block';
+
+		document
+			.querySelectorAll('.fishExpSmall')
+			.forEach(el => {
+				el.style.display = 'inline-block';
+			});
+
+	}
+
+
+	// =========================
+	// 초기 실행
+	// =========================
+
+	initDropdowns();
+
+	loadInputs();
+
+	calculate();
 
 </script>
 
