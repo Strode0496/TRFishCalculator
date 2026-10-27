@@ -54,3 +54,4 @@
 ![2025-07-04_17-50-51-Window-vert-1](https://github.com/user-attachments/assets/b7b36154-c43c-4aa3-afec-14395f09fc44)
 
 
+※ `<script>` 태그 안의 JapaScript 코드 작성에 한해서 AI가 사용되었으며, HTML과 CSS를 포함한 다른 부분은 직접 작성하였습니다.
